@@ -1,16 +1,23 @@
-/* function loadGame() {
-    var elem = document.getElementById("info");   
-    var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (width >= 100) {
-        clearInterval(id);
+$(document).ready(function () {
+  $('.game-frame-two').hide();
+  $('canvas').hide();
 
-      } else {
-        width++; 
-        elem.style.width = width + '%'; 
-      }
-    }
-  } */
+  $('.header').on('click', function () {
+    $('#title').fadeOut(400);
+    $('#DS-logo').fadeOut(400);
+    $('.header').hide(400);
+    $('.game-frame-two').delay(600).fadeIn(800);
+  });
 
+  $('.character').on('click', function () {
+    $('.character').css({ transform: 'scale(1)', filter: 'grayscale(100%)' });
+    $(this).css({ transform: 'scale(1.25)', filter: 'none' });
+  });
 
+  $('.character').dblclick(function () {
+    $('.game-frame-two').fadeOut(400);
+    $('canvas').delay(400).fadeIn(600);
+  });
+
+/*   $('canvas').css({background: 'url(./img/background.jpg)'});
+ */});

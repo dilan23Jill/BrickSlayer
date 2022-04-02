@@ -60,35 +60,40 @@ $line-border-empty: #e0e0e0
         height: 100%
         @include centerer
         border-radius: 12px
-        filter: blur(0)
         display: grid
         place-items: center
 
     #canvas
         @include centerer
         background: green
-        margin-top: 7em
-        display: none
+        border-radius: 12px
+        background: url('../img/night.jpeg')
+        background-size: cover
 
-    .menu-dock
-        width: fit-content
-        height: fit-content
-        background-color: white
-        position: absolute
-        left: 0em
-        top: 2em
+    .game-frame-two
+        width: max-content
+        height: max-content
 
 
-    .menu-dock>div
-        display: block
-        width: 4em
-        height: 4em
-        border-radius: 50%
-        margin-top: 1em
-        background-color: red
-        visibility: hidden
+    .character
+        display: inline-block
+        width: 400px
+        padding: 3em
+        transition: all 1s ease-in-out
+        margin-left: 1em
+        filter: grayscale(100%)
 
- 
-    .menu-dock:hover
-        visibility: visible
+    .character:hover
+        transform: scale(1.25) 
+        cursor: pointer
+        filter: none
 
+    h2
+        text-align: center
+        font-size: 4em
+        color: white
+
+    p
+        text-align: center
+        font-size: 2em
+        margin-bottom: 1em
