@@ -18,6 +18,4 @@ $(document).ready(function () {
     $('.game-frame-two').fadeOut(400);
     $('canvas').delay(400).fadeIn(600);
   });
-
-/*   $('canvas').css({background: 'url(./img/background.jpg)'});
- */});
+});
