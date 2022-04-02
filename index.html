@@ -2,16 +2,39 @@
 <html leng="en">
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <meta charset="utf-8">
+    <title>Brick Slayer</title>
+
+    <style>
+        @font-face {
+            font-family: Demon Slayer;
+            src: url(font/DEMON_NI.TTF);
+        }
+    </style>
 
     <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <div class="container">
-<!--     <canvas id="canvas" width="300" height="300"></canvas>
- -->    </div>
+    <div class="container"></div>
+
+    <div class="game-frame">
+        
+        <div class="menu-dock">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="header" onclick='loadGame()'>
+            <h1 id="title">BRICK SLAYER</h1>
+            <img src="img/SD_logo.png" id="DS-logo">
+        </div>
+            <canvas id="canvas" width="1000" height="500"></canvas>
+        </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+
 </body>
 
 </html>
