@@ -23,7 +23,7 @@ $(document).ready(function () {
   sword.src = './img/Kyojuro-sword.png';
 
   var character = new Image();
-  character.src = './img/Zenitsu.webp';
+  character.src = './img/Giyuu.webp';
 
   var CharaterHeight = character.height / 7;
   var CharaterWidth = character.width / 7;
@@ -73,19 +73,10 @@ $(document).ready(function () {
       ctx.clearRect(x, y, 20, 90);
       x += dx;
       y += dy;
-      /* if (
-            x + 20 > charX &&
-            x < canvas.width / 2 + CharaterWidth / 2 &&
-            y + 90 > charY
-          ) {
-            ctx.drawImage(
-              character,
-              charX,
-              charY,
-              CharaterWidth,
-              CharaterHeight
-            );
-          } */
+      if (x + 20 >= charX && x + 20 <= charX && y + 90 >= charY) {
+        dx = -dx;
+        dy = -dy;
+      }
       if (x + 20 > canvas.width || x <= -5) {
         dx = -dx;
       }
@@ -100,8 +91,8 @@ $(document).ready(function () {
           ctx.clearRect(charX, charY, CharaterWidth, CharaterHeight);
           charX += 5;
           ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
-        }else {
-          charX = canvas.width-CharaterWidth;
+        } else {
+          charX = canvas.width - CharaterWidth;
         }
       }
       if (leftDown) {
@@ -113,21 +104,44 @@ $(document).ready(function () {
           charX = 0;
         }
       }
+      for (let i = 0; i < rownum; i++) {
+        for (let j = 0; j < colnum; j++) {
+          if (brick_arr[i][j] > 0) {
+            rect(
+              j * (brickwidth + padding) + padding,
+              i * (brickheight + padding) + padding,
+              brickwidth,
+              brickheight
+            );
+          }
+        }
+      }
+
+      function rect(x, y, w, h) {
+        ctx.beginPath();
+        ctx.rect(x, y, w, h);
+        ctx.closePath();
+        ctx.fill();
+      }
     }
     init();
     initBrick();
   };
 
+  var brick_arr = [];
+  var rownum = 5;
+  var colnum = 10;
+  var padding = 10;
+  var brickheight = 30;
+  var brickwidth = canvas.width / colnum - 11;
   function initBrick() {
-    let brick_arr = [];
-
-    for (let i = 0; i < 5; i++) {
-      for (let j = 0; j < 10; j++) {
+    for (let i = 0; i < rownum; i++) {
+      for (let j = 0; j < colnum; j++) {
         brick_arr[i] = [];
       }
     }
-    for (let i = 0; i < 5; i++) {
-      for (let j = 0; j < 10; j++) {
+    for (let i = 0; i < rownum; i++) {
+      for (let j = 0; j < colnum; j++) {
         brick_arr[i][j] = Math.floor(Math.random() * 10) + 0;
         if (brick_arr[i][j] == 0) {
         }
