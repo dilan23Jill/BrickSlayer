@@ -17,6 +17,7 @@ $(document).ready(function () {
   $('.character').dblclick(function () {
     $('.game-frame-two').fadeOut(400);
     $('canvas').delay(400).fadeIn(600);
+    
   }); */
 
   var sword = new Image();
@@ -25,9 +26,17 @@ $(document).ready(function () {
   var character = new Image();
   character.src = './img/Giyuu.webp';
 
+  var demon_one = new Image();
+  demon_one.src = './img/demon1.png';
+
+  var demon_two = new Image();
+  demon_two.src = './img/demon2.png';
+
+  var demon_three = new Image();
+  demon_three.src = './img/demon3.png';
+
   var CharaterHeight = character.height / 7;
   var CharaterWidth = character.width / 7;
-  let rot = 0;
   var startW = canvas.width / 2 - 10;
   var startH = canvas.height - CharaterHeight - 100;
 
@@ -46,6 +55,13 @@ $(document).ready(function () {
   $(document).keydown(onKeyDown);
   $(document).keyup(onKeyUp);
 
+  var brick_arr = [];
+  var rownum = 5;
+  var colnum = 10;
+  var padding = 10;
+  var brickheight = 30;
+  var brickwidth = canvas.width / colnum - 11;
+
   window.onload = function draw() {
     let x = startW;
     let y = startH;
@@ -56,6 +72,7 @@ $(document).ready(function () {
     let charX = canvas.width / 2 - CharaterWidth / 2;
     let charY = canvas.height - CharaterHeight;
 
+   
     ctx.drawImage(sword, x, y, 20, 90);
     ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
 
@@ -66,14 +83,18 @@ $(document).ready(function () {
     }
 
     function move() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height );
+     
       /* ctx.translate(x + 20 * 0.5, y + 90 * 0.5);
             ctx.rotate(-.01);
             ctx.translate(-(x + 20 * 0.5), -(y + 90 * 0.5));rot++; 
             */
-      ctx.clearRect(x, y, 20, 90);
-      x += dx;
-      y += dy;
-      if (x + 20 >= charX && x + 20 <= charX && y + 90 >= charY) {
+
+      if (
+        x + 20 >= charX &&
+        x <= charX + CharaterWidth &&
+        y > canvas.height - CharaterHeight - 90
+      ) {
         dx = -dx;
         dy = -dy;
       }
@@ -83,12 +104,13 @@ $(document).ready(function () {
       if (y + 90 > canvas.height || y <= 0) {
         dy = -dy;
       }
-
+      ctx.clearRect(x, y, 20, 90);
+      x += dx;
+      y += dy;
       ctx.drawImage(sword, x, y, 20, 90);
 
       if (rightDown) {
         if (charX + CharaterWidth < canvas.width) {
-          ctx.clearRect(charX, charY, CharaterWidth, CharaterHeight);
           charX += 5;
           ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
         } else {
@@ -97,7 +119,6 @@ $(document).ready(function () {
       }
       if (leftDown) {
         if (charX > 0) {
-          ctx.clearRect(charX, charY, CharaterWidth, CharaterHeight);
           charX -= 5;
           ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
         } else {
@@ -111,29 +132,46 @@ $(document).ready(function () {
               j * (brickwidth + padding) + padding,
               i * (brickheight + padding) + padding,
               brickwidth,
-              brickheight
+              brickheight,
+              brick_arr[i][j]
             );
           }
         }
       }
 
-      function rect(x, y, w, h) {
+      rowheight = brickheight + padding; //Smo zadeli opeko?
+      colwidth = brickwidth + padding;
+      row = Math.floor(y / rowheight);
+      col = Math.floor(x / colwidth);
+      if (y < rownum * rowheight && row >= 0 && col >= 0) {
+        dy = -dy;
+        brick_arr[row][col] = 0;
+      }
+      ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
+
+      function rect(x, y, w, h, demon) {
         ctx.beginPath();
         ctx.rect(x, y, w, h);
         ctx.closePath();
         ctx.fill();
+
+        if (demon >= 1 && demon <= 6) {
+          ctx.drawImage(demon_three, x, y, w, h);
+          ctx.strokeStyle = 'grey';
+        } else if (demon >= 7 && demon <= 8) {
+          ctx.drawImage(demon_two, x, y, w, h);
+          ctx.strokeStyle = 'blue';
+        } else {
+          ctx.drawImage(demon_one, x, y, w, h);
+          ctx.strokeStyle = 'yellow';
+        }
+        ctx.strokeRect(x, y, w, h);
       }
     }
     init();
     initBrick();
   };
 
-  var brick_arr = [];
-  var rownum = 5;
-  var colnum = 10;
-  var padding = 10;
-  var brickheight = 30;
-  var brickwidth = canvas.width / colnum - 11;
   function initBrick() {
     for (let i = 0; i < rownum; i++) {
       for (let j = 0; j < colnum; j++) {
@@ -143,8 +181,6 @@ $(document).ready(function () {
     for (let i = 0; i < rownum; i++) {
       for (let j = 0; j < colnum; j++) {
         brick_arr[i][j] = Math.floor(Math.random() * 10) + 0;
-        if (brick_arr[i][j] == 0) {
-        }
       }
     }
   }
