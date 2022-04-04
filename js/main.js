@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  /*  $('.game-frame-two').hide();
+    $('.game-frame-two').hide();
   $('canvas').hide();
 
   $('.header').on('click', function () {
@@ -18,7 +18,7 @@ $(document).ready(function () {
     $('.game-frame-two').fadeOut(400);
     $('canvas').delay(400).fadeIn(600);
     
-  }); */
+  }); 
 
   var sword = new Image();
   sword.src = './img/Kyojuro-sword.png';
@@ -72,7 +72,6 @@ $(document).ready(function () {
     let charX = canvas.width / 2 - CharaterWidth / 2;
     let charY = canvas.height - CharaterHeight;
 
-   
     ctx.drawImage(sword, x, y, 20, 90);
     ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
 
@@ -83,8 +82,8 @@ $(document).ready(function () {
     }
 
     function move() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height );
-     
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       /* ctx.translate(x + 20 * 0.5, y + 90 * 0.5);
             ctx.rotate(-.01);
             ctx.translate(-(x + 20 * 0.5), -(y + 90 * 0.5));rot++; 
@@ -124,7 +123,9 @@ $(document).ready(function () {
         } else {
           charX = 0;
         }
-      }
+      }     
+       ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
+
       for (let i = 0; i < rownum; i++) {
         for (let j = 0; j < colnum; j++) {
           if (brick_arr[i][j] > 0) {
@@ -139,15 +140,21 @@ $(document).ready(function () {
         }
       }
 
-      rowheight = brickheight + padding; //Smo zadeli opeko?
+      rowheight = brickheight + padding;
       colwidth = brickwidth + padding;
       row = Math.floor(y / rowheight);
       col = Math.floor(x / colwidth);
-      if (y < rownum * rowheight && row >= 0 && col >= 0) {
-        dy = -dy;
+      if (
+        y < rownum * rowheight &&
+        row >= 0 &&
+        col >= 0 && brick_arr[row][col] >= 1
+        
+      ) {
         brick_arr[row][col] = 0;
+        dy = -dy; 
+        console.log("bra");
       }
-      ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
+     
 
       function rect(x, y, w, h, demon) {
         ctx.beginPath();
