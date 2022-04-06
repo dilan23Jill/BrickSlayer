@@ -89,16 +89,17 @@ $(document).ready(function () {
       ctx = canvas.getContext('2d');
       return setInterval(move, 10);
     }
+    var brickLife2 = 2;
 
     function move() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.drawImage(sword, x, y, 20, 90);
 
       /*   ctx.translate(x + 20 * 0.5, y + 90 * 0.5);
             ctx.rotate(-1);
             ctx.translate(-(x + 20 * 0.5), -(y + 90 * 0.5));
              */
-            ctx.drawImage(sword, x, y, 20, 90);
-
 
       if (
         x + 20 >= charX &&
@@ -157,7 +158,19 @@ $(document).ready(function () {
         col >= 0 &&
         brick_arr[row][col] >= 1
       ) {
-        brick_arr[row][col] = 0;
+        if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
+          brick_arr[row][col] = 0;
+        } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
+          if (brick_arr[row][col] == 7.5) brick_arr[row][col] = 0;
+          if (brick_arr[row][col] == 8)
+            brick_arr[row][col] = brick_arr[row][col] - 0.5;
+          if (brick_arr[row][col] == 7)
+            brick_arr[row][col] = brick_arr[row][col] + 0.5;
+        } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
+          brick_arr[row][col] = brick_arr[row][col] + 1;
+          if (brick_arr[row][col] == 12) brick_arr[row][col] = 0;
+        }
+
         dy = -dy;
       }
 
@@ -173,7 +186,7 @@ $(document).ready(function () {
         } else if (demon >= 7 && demon <= 8) {
           ctx.drawImage(demon_two, x, y, w, h);
           ctx.strokeStyle = 'blue';
-        } else {
+        } else if (demon >= 9) {
           ctx.drawImage(demon_one, x, y, w, h);
           ctx.strokeStyle = 'yellow';
         }
