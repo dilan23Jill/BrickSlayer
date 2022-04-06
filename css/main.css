@@ -76,5 +76,20 @@
     text-align: center;
     font-size: 2em;
     margin-bottom: 1em; }
+  * .blink_me {
+    animation: blinker 1s linear infinite;
+    text-align: center;
+    font-size: 3em;
+    background-color: white;
+    border-radius: 12px;
+    padding: 5px;
+    padding-top: 12px;
+    margin-top: 1em;
+    height: max-content;
+    width: max-content; }
+
+@keyframes blinker {
+  50% {
+    opacity: 0; } }
 
 /*# sourceMappingURL=main.css.map */

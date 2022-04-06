@@ -73,7 +73,6 @@ $line-border-empty: #e0e0e0
         width: max-content
         height: max-content
 
-
     .character
         display: inline-block
         width: 400px
@@ -83,7 +82,7 @@ $line-border-empty: #e0e0e0
         filter: grayscale(100%)
 
     .character:hover
-        transform: scale(1.25) 
+        transform: scale(1.25)
         cursor: pointer
         filter: none
 
@@ -96,7 +95,19 @@ $line-border-empty: #e0e0e0
         text-align: center
         font-size: 2em
         margin-bottom: 1em
-        
-    
 
+    .blink_me
+        animation: blinker 1s linear infinite
+        text-align: center
+        font-size: 3em  
+        background-color: white
+        border-radius: 12px
+        padding: 5px
+        padding-top: 12px
+        margin-top: 1em
+        height: max-content
+        width: max-content
 
+@keyframes blinker
+    50%
+        opacity: 0

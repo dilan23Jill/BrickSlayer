@@ -13,6 +13,9 @@ $(document).ready(function () {
     $('.character').css({ transform: 'scale(1)', filter: 'grayscale(100%)' });
     $(this).css({ transform: 'scale(1.25)', filter: 'none' });
   }); */
+  $('.blink_me').hide();
+  let destoyedBricks = 1;
+
   var character = new Image();
   $('#char_one').dblclick(function () {
     character.src = './img/Giyuu.webp';
@@ -34,6 +37,12 @@ $(document).ready(function () {
   var sword = new Image();
   sword.src = './img/Kyojuro-sword.png';
 
+  swordWidth = sword.width / 10;
+  swordHeight = sword.height / 10;
+
+  var sword_180 = new Image();
+  sword_180.src = './img/Kyojuro-sword-180.png';
+
   character.src = './img/Kyojuro.webp';
 
   var demon_one = new Image();
@@ -49,13 +58,25 @@ $(document).ready(function () {
   var CharaterWidth = character.width / 7;
   var startW = canvas.width / 2 - 10;
   var startH = canvas.height - CharaterHeight - 100;
-
+  let done = true;
   var rightDown = false;
   var leftDown = false;
-
+  let ifPowerUp = false;
   function onKeyDown(evt) {
     if (evt.keyCode == 39) rightDown = true;
-    else if (evt.keyCode == 37) leftDown = true;
+    if (evt.keyCode == 37) leftDown = true;
+    else if (evt.keyCode == 32) {
+      if(destoyedBricks>=15){
+      $('.blink_me').hide();
+
+      if (done == true) {
+        ifPowerUp = true;
+        done = false;
+        setTimeout(() => {
+          ifPowerUp = false;
+        }, 5000);
+      }
+    }}
   }
 
   function onKeyUp(evt) {
@@ -83,36 +104,43 @@ $(document).ready(function () {
     let charY = canvas.height - CharaterHeight;
 
     ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
-
+    function brickpower() {
+      if (ifPowerUp == false) {
+        dy = -dy;
+      } else return;
+    }
     function init() {
       canvas = document.getElementById('canvas');
       ctx = canvas.getContext('2d');
-      return setInterval(move, 10);
+      setInterval(move, 10);
     }
-    var brickLife2 = 2;
-
+   
+    let i = 1;
     function move() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ctx.drawImage(sword, x, y, 20, 90);
-
-      /*   ctx.translate(x + 20 * 0.5, y + 90 * 0.5);
-            ctx.rotate(-1);
-            ctx.translate(-(x + 20 * 0.5), -(y + 90 * 0.5));
-             */
+      ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
+      if (ifPowerUp == true) {
+        ctx.save();
+        ctx.translate(x + swordWidth / 2, y + swordHeight / 2);
+        ctx.rotate(i);
+        ctx.translate(-(swordWidth / 2 + x), -(swordHeight / 2 + y));
+        ctx.drawImage(sword, x, y, swordWidth, swordHeight);
+        ctx.restore();
+        i += 20;
+      } else ctx.drawImage(sword, x, y, swordWidth, swordHeight);
 
       if (
-        x + 20 >= charX &&
+        x + swordWidth >= charX &&
         x <= charX + CharaterWidth &&
         y > canvas.height - CharaterHeight - 90
       ) {
         dx = -dx;
         dy = -dy;
       }
-      if (x + 20 > canvas.width || x <= -5) {
+      if (x + swordWidth > canvas.width || x <= -5) {
         dx = -dx;
       }
-      if (y + 90 > canvas.height || y <= 0) {
+      if (y + swordHeight > canvas.height || y <= 0) {
         dy = -dy;
       }
       x += dx;
@@ -132,7 +160,6 @@ $(document).ready(function () {
           charX = 0;
         }
       }
-      ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
 
       for (let i = 0; i < rownum; i++) {
         for (let j = 0; j < colnum; j++) {
@@ -160,18 +187,28 @@ $(document).ready(function () {
       ) {
         if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
           brick_arr[row][col] = 0;
+          destoyedBricks++;
         } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
-          if (brick_arr[row][col] == 7.5) brick_arr[row][col] = 0;
+          if (brick_arr[row][col] == 7.5) {
+            destoyedBricks++;
+            brick_arr[row][col] = 0;
+          }
           if (brick_arr[row][col] == 8)
             brick_arr[row][col] = brick_arr[row][col] - 0.5;
           if (brick_arr[row][col] == 7)
             brick_arr[row][col] = brick_arr[row][col] + 0.5;
         } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
           brick_arr[row][col] = brick_arr[row][col] + 1;
-          if (brick_arr[row][col] == 12) brick_arr[row][col] = 0;
+          if (brick_arr[row][col] == 12) {
+            destoyedBricks++;
+            brick_arr[row][col] = 0;
+          } else return;
         }
+        brickpower();
+      }
 
-        dy = -dy;
+      if (destoyedBricks >= 15 && done==true ) {
+        $('.blink_me').show();
       }
 
       function rect(x, y, w, h, demon) {
