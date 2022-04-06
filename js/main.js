@@ -66,17 +66,18 @@ $(document).ready(function () {
     if (evt.keyCode == 39) rightDown = true;
     if (evt.keyCode == 37) leftDown = true;
     else if (evt.keyCode == 32) {
-      if(destoyedBricks>=15){
-      $('.blink_me').hide();
+      if (destoyedBricks >= 15) {
+        $('.blink_me').hide();
 
-      if (done == true) {
-        ifPowerUp = true;
-        done = false;
-        setTimeout(() => {
-          ifPowerUp = false;
-        }, 5000);
+        if (done == true) {
+          ifPowerUp = true;
+          done = false;
+          setTimeout(() => {
+            ifPowerUp = false;
+          }, 5000);
+        }
       }
-    }}
+    }
   }
 
   function onKeyUp(evt) {
@@ -104,6 +105,7 @@ $(document).ready(function () {
     let charY = canvas.height - CharaterHeight;
 
     ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
+
     function brickpower() {
       if (ifPowerUp == false) {
         dy = -dy;
@@ -114,7 +116,7 @@ $(document).ready(function () {
       ctx = canvas.getContext('2d');
       setInterval(move, 10);
     }
-   
+
     let i = 1;
     function move() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,15 +130,28 @@ $(document).ready(function () {
         ctx.restore();
         i += 20;
       } else ctx.drawImage(sword, x, y, swordWidth, swordHeight);
-
+    
       if (
         x + swordWidth >= charX &&
         x <= charX + CharaterWidth &&
-        y > canvas.height - CharaterHeight - 90
+        y >= canvas.height - CharaterHeight - swordHeight
       ) {
-        dx = -dx;
-        dy = -dy;
+        if (
+          x + swordWidth >= charX &&
+          y >= canvas.height - CharaterHeight - swordHeight &&
+          x<=charX+(CharaterWidth/2)
+        ){        
+          dx=Math.floor(Math.random() * 5) + -6;
+          dy=-dy;
+        }else if( x <= charX + CharaterWidth &&
+          y >= canvas.height - CharaterHeight - swordHeight &&
+          x>=charX+(CharaterWidth/2)){
+            dx=Math.floor(Math.random() * 5) + 1;
+            dy=-dy;
+
+        }else dy=-dy;
       }
+      
       if (x + swordWidth > canvas.width || x <= -5) {
         dx = -dx;
       }
@@ -148,14 +163,14 @@ $(document).ready(function () {
 
       if (rightDown) {
         if (charX + CharaterWidth < canvas.width) {
-          charX += 5;
+          charX += 10;
         } else {
           charX = canvas.width - CharaterWidth;
         }
       }
       if (leftDown) {
         if (charX > 0) {
-          charX -= 5;
+          charX -= 10;
         } else {
           charX = 0;
         }
@@ -180,11 +195,10 @@ $(document).ready(function () {
       row = Math.floor(y / rowheight);
       col = Math.floor(x / colwidth);
       if (
-        y < rownum * rowheight &&
+        y < rownum * rowheight  &&
         row >= 0 &&
         col >= 0 &&
-        brick_arr[row][col] >= 1
-      ) {
+        brick_arr[row][col] >= 1) {
         if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
           brick_arr[row][col] = 0;
           destoyedBricks++;
@@ -195,6 +209,7 @@ $(document).ready(function () {
           }
           if (brick_arr[row][col] == 8)
             brick_arr[row][col] = brick_arr[row][col] - 0.5;
+
           if (brick_arr[row][col] == 7)
             brick_arr[row][col] = brick_arr[row][col] + 0.5;
         } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
@@ -202,12 +217,12 @@ $(document).ready(function () {
           if (brick_arr[row][col] == 12) {
             destoyedBricks++;
             brick_arr[row][col] = 0;
-          } else return;
+          } 
         }
         brickpower();
       }
 
-      if (destoyedBricks >= 15 && done==true ) {
+      if (destoyedBricks >= 15 && done == true) {
         $('.blink_me').show();
       }
 
