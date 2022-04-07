@@ -14,20 +14,29 @@
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" type="image/x-icon" href="img/SD_logo.ico">
-
-
-
 </head>
 
 <body>
     <div class="container"></div>
 
     <div class="game-frame">
-        <div class="header" onclick='loadGame()'>
+        <div class="game">
+            <p class="swords_left">SWORDS LEFT:</p>  <br/>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br/>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life">
+            <canvas id="canvas" width="1200" height="600"></canvas>  
+            <div class="blink_me">!! PRESS SPACE FOR POWERUP !!</div>
+
+        </div>
+        <!--    <div class="header" onclick='loadGame()'>
             <h1 id="title">BRICK SLAYER</h1>
             <img src="img/SD_logo.png" id="DS-logo">
         </div>
-
+ -->
         <!-- <div class="game-frame-two">
             <h2>CHOOSE YOUR CHARACTER</h2><br/>
             <p>! DOUBLE CLICK TO CONFIRM !</p>
@@ -37,8 +46,6 @@
 
         </div>  -->
 
-<div class="blink_me">!! PRESS SPACE FOR POWERUP !!</div>
-        <canvas id="canvas" width="1200" height="600"></canvas>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

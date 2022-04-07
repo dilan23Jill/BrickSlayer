@@ -12,7 +12,9 @@
     background: url(../img/background.jpg) no-repeat;
     background-size: cover;
     filter: blur(5px);
-    z-index: 0; }
+    z-index: 0;
+    display: grid;
+    place-items: center; }
   * .header {
     width: 38em;
     height: 38em;
@@ -46,11 +48,6 @@
     display: grid;
     place-items: center; }
   * #canvas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: green;
     border-radius: 12px;
     background: url("../img/background.jpg");
     background-size: cover; }
@@ -78,15 +75,29 @@
     margin-bottom: 1em; }
   * .blink_me {
     animation: blinker 1s linear infinite;
-    text-align: center;
     font-size: 3em;
+    text-align: center;
+    z-index: 10;
     background-color: white;
     border-radius: 12px;
     padding: 5px;
     padding-top: 12px;
-    margin-top: 1em;
-    height: max-content;
-    width: max-content; }
+    top: 20em;
+    width: 80%;
+    transform: translateX(12.5%);
+    margin-top: 10px; }
+  * .game {
+    height: 100%;
+    width: min-content; }
+  * .sword_life {
+    height: 20px;
+    margin-left: 10em; }
+  * .swords_left {
+    display: inline-block;
+    position: relative;
+    top: 4em; }
+  * .sword_life:nth-of-type(2) {
+    filter: drop-shadow(0 0 0.3rem red); }
 
 @keyframes blinker {
   50% {

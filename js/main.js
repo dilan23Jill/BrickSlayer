@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('.character').css({ transform: 'scale(1)', filter: 'grayscale(100%)' });
     $(this).css({ transform: 'scale(1.25)', filter: 'none' });
   }); */
-  $('.blink_me').hide();
+   $('.blink_me').hide();
   let destoyedBricks = 1;
 
   var character = new Image();
@@ -56,8 +56,8 @@ $(document).ready(function () {
 
   var CharaterHeight = character.height / 7;
   var CharaterWidth = character.width / 7;
-  var startW = canvas.width / 2 - 10;
-  var startH = canvas.height - CharaterHeight - 100;
+  var startW = canvas.width / 2;
+  var startH = canvas.height - CharaterHeight - swordHeight;
   let done = true;
   var rightDown = false;
   var leftDown = false;
@@ -103,6 +103,7 @@ $(document).ready(function () {
     var ctx = canvas.getContext('2d');
     let charX = canvas.width / 2 - CharaterWidth / 2;
     let charY = canvas.height - CharaterHeight;
+    let life = 5;
 
     ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
 
@@ -130,7 +131,7 @@ $(document).ready(function () {
         ctx.restore();
         i += 20;
       } else ctx.drawImage(sword, x, y, swordWidth, swordHeight);
-    
+
       if (
         x + swordWidth >= charX &&
         x <= charX + CharaterWidth &&
@@ -139,38 +140,49 @@ $(document).ready(function () {
         if (
           x + swordWidth >= charX &&
           y >= canvas.height - CharaterHeight - swordHeight &&
-          x<=charX+(CharaterWidth/2)
-        ){        
-          dx=Math.floor(Math.random() * 5) + -6;
-          dy=-dy;
-        }else if( x <= charX + CharaterWidth &&
+          x <= charX + CharaterWidth / 2 &&
+          y >= canvas.height - CharaterHeight - swordHeight
+        ) {
+          dx = Math.floor(Math.random() * 5) + -6;
+          dy = -dy;
+        } else if (
+          x <= charX + CharaterWidth &&
           y >= canvas.height - CharaterHeight - swordHeight &&
-          x>=charX+(CharaterWidth/2)){
-            dx=Math.floor(Math.random() * 5) + 1;
-            dy=-dy;
-
-        }else dy=-dy;
+          x >= charX + CharaterWidth / 2 &&
+          y >= canvas.height - CharaterHeight - swordHeight
+        ) {
+          dx = Math.floor(Math.random() * 5) + 1;
+          dy = -dy;
+        } else{dy = -dy;
+          dx = Math.floor(Math.random() * 10) + -5;
+          if(dx==0)dx++;
+        } 
       }
-      
-      if (x + swordWidth > canvas.width || x <= -5) {
+
+      if (x + swordWidth > canvas.width || x <= 5) {
         dx = -dx;
       }
-      if (y + swordHeight > canvas.height || y <= 0) {
-        dy = -dy;
-      }
+      if (y + swordHeight > canvas.height) {
+        if (ifPowerUp == false) x = charX + CharaterWidth / 2;
+        y = canvas.height - CharaterHeight - swordHeight;
+        life--;
+        dx = Math.floor(Math.random() * 10) + -5;
+        dy=-dy;
+      } else if (y <= 5) dy = -dy;
+
       x += dx;
       y += dy;
 
       if (rightDown) {
         if (charX + CharaterWidth < canvas.width) {
-          charX += 10;
+          charX += 7;
         } else {
           charX = canvas.width - CharaterWidth;
         }
       }
       if (leftDown) {
         if (charX > 0) {
-          charX -= 10;
+          charX -= 7;
         } else {
           charX = 0;
         }
@@ -195,10 +207,11 @@ $(document).ready(function () {
       row = Math.floor(y / rowheight);
       col = Math.floor(x / colwidth);
       if (
-        y < rownum * rowheight  &&
+        y < rownum * rowheight &&
         row >= 0 &&
         col >= 0 &&
-        brick_arr[row][col] >= 1) {
+        brick_arr[row][col] >= 1
+      ) {
         if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
           brick_arr[row][col] = 0;
           destoyedBricks++;
@@ -217,7 +230,7 @@ $(document).ready(function () {
           if (brick_arr[row][col] == 12) {
             destoyedBricks++;
             brick_arr[row][col] = 0;
-          } 
+          }
         }
         brickpower();
       }
