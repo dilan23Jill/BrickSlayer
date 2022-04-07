@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('.character').css({ transform: 'scale(1)', filter: 'grayscale(100%)' });
     $(this).css({ transform: 'scale(1.25)', filter: 'none' });
   }); */
-   $('.blink_me').hide();
+  $('.blink_me').hide();
   let destoyedBricks = 1;
 
   var character = new Image();
@@ -153,21 +153,28 @@ $(document).ready(function () {
         ) {
           dx = Math.floor(Math.random() * 5) + 1;
           dy = -dy;
-        } else{dy = -dy;
+        } else {
+          dy = -dy;
           dx = Math.floor(Math.random() * 10) + -5;
-          if(dx==0)dx++;
-        } 
+          if (dx == 0) dx++;
+        }
       }
 
       if (x + swordWidth > canvas.width || x <= 5) {
         dx = -dx;
       }
       if (y + swordHeight > canvas.height) {
-        if (ifPowerUp == false) x = charX + CharaterWidth / 2;
-        y = canvas.height - CharaterHeight - swordHeight;
-        life--;
-        dx = Math.floor(Math.random() * 10) + -5;
-        dy=-dy;
+        if (ifPowerUp == true) {
+          dx = Math.floor(Math.random() * 10) + -5;
+          dy = -dy;
+        } else {
+          removeSword();
+          x = charX + CharaterWidth / 2;
+          y = canvas.height - CharaterHeight - swordHeight;
+          life--;
+          dx = Math.floor(Math.random() * 10) + -5;
+          dy = -dy;
+        }
       } else if (y <= 5) dy = -dy;
 
       x += dx;
@@ -273,5 +280,17 @@ $(document).ready(function () {
         brick_arr[i][j] = Math.floor(Math.random() * 10) + 0;
       }
     }
+  }
+  let life = 6
+  $('.sword_life:nth-of-type(' + life + ')').css({
+    filter: 'drop-shadow(0 0 0.3rem red)',
+  });
+
+  function removeSword() { 
+    $('.sword_life:nth-of-type(' + life + ')').hide();
+    life--;
+    $('.sword_life:nth-of-type(' + life + ')').css({
+      filter: 'drop-shadow(0 0 0.3rem red)',
+    });
   }
 });

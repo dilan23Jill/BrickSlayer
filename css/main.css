@@ -88,16 +88,23 @@
     margin-top: 10px; }
   * .game {
     height: 100%;
-    width: min-content; }
+    width: min-content;
+    margin-top: 15em; }
   * .sword_life {
-    height: 20px;
-    margin-left: 10em; }
+    height: 20px; }
   * .swords_left {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px; }
+  * .swords {
     display: inline-block;
-    position: relative;
-    top: 4em; }
-  * .sword_life:nth-of-type(2) {
-    filter: drop-shadow(0 0 0.3rem red); }
+    width: max-content;
+    height: min-content;
+    position: absolute;
+    top: 1em; }
+  * .upper_menu {
+    width: max-content;
+    height: min-content; }
 
 @keyframes blinker {
   50% {

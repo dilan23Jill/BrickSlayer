@@ -109,26 +109,34 @@ $line-border-empty: #e0e0e0
         width: 80%
         transform: translateX(12.5%)
         margin-top: 10px
-        
+
     .game
         height: 100%
         width: min-content
-    
+        margin-top: 15em
+
     .sword_life
         height: 20px
-        margin-left: 10em
 
     .swords_left
+        float: left
+        margin-right: 20px
+        margin-bottom: 10px
+        
+
+    .swords
         display: inline-block
-        position: relative
-        top: 4em
+        width: max-content
+        height: min-content
+        position: absolute
+        top: 1em
 
-    .sword_life:nth-of-type(2)
-        filter: drop-shadow(0 0 0.3rem red)
+    .upper_menu
+        width: max-content
+        height: min-content
 
+   
 
 @keyframes blinker
     50%
         opacity: 0
-
-    
