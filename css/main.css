@@ -70,29 +70,47 @@
     animation: blinker 1s linear infinite;
     font-size: 3em;
     text-align: center;
-    z-index: 10;
     background-color: white;
     border-radius: 12px;
-    padding: 5px;
-    padding-top: 12px;
+    padding: 10px;
     top: 20em;
-    width: 80%;
-    transform: translateX(12.5%);
-    margin-top: 10px; }
+    width: 60%;
+    margin-top: 10px;
+    margin-left: 29%; }
   * .swords_left {
     font-size: 4em; }
   * .sword_life {
-    height: 25px;
-    margin-left: 50%;
-    transform: translate(-50%); }
+    position: absolute;
+    height: 40px;
+    margin-left: 3em; }
+  * .sword_life_two {
+    width: 17px; }
   * .info {
     display: inline-block;
-    height: 600px;
+    height: 750px;
     width: max-content; }
   * .legend {
     font-size: 4em;
-    position: absolute;
-    top: 50%; }
+    top: 40%; }
+  * .timer {
+    font-size: 4em;
+    margin-top: 5.2em; }
+  * .info_two {
+    display: inline-block;
+    height: 700px;
+    width: max-content; }
+  * .demonImg {
+    width: 130px;
+    display: inline-block; }
+  * .demonImg:nth-of-type(1) {
+    margin-top: 2em; }
+  * .demon_legend {
+    position: absolute; }
+  * #remTime {
+    margin-left: 0.3em;
+    animation: blinker 1s linear infinite;
+    background-color: transparent;
+    color: blue; }
 
 @keyframes blinker {
   50% {

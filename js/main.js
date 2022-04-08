@@ -13,9 +13,13 @@ $(document).ready(function () {
     $('.character').css({ transform: 'scale(1)', filter: 'grayscale(100%)' });
     $(this).css({ transform: 'scale(1.25)', filter: 'none' });
   }); */
-  $('.blink_me').hide();
-  let destoyedBricks = 1;
 
+  
+
+ let destoyedBricks = 1;
+  $('.blink_me').css({
+  visibility: 'hidden'
+}); 
   var character = new Image();
   $('#char_one').dblclick(function () {
     character.src = './img/Giyuu.webp';
@@ -67,8 +71,10 @@ $(document).ready(function () {
     if (evt.keyCode == 37) leftDown = true;
     else if (evt.keyCode == 32) {
       if (destoyedBricks >= 15) {
-        $('.blink_me').hide();
-
+       
+        $('.blink_me').css({
+          visibility: 'hidden'
+        }); 
         if (done == true) {
           ifPowerUp = true;
           done = false;
@@ -91,7 +97,7 @@ $(document).ready(function () {
   var rownum = 5;
   var colnum = 10;
   var padding = 10;
-  var brickheight = 30;
+  var brickheight = 50;
   var brickwidth = canvas.width / colnum - 11;
 
   window.onload = function draw() {
@@ -103,7 +109,6 @@ $(document).ready(function () {
     var ctx = canvas.getContext('2d');
     let charX = canvas.width / 2 - CharaterWidth / 2;
     let charY = canvas.height - CharaterHeight;
-    let life = 5;
 
     ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
 
@@ -112,10 +117,16 @@ $(document).ready(function () {
         dy = -dy;
       } else return;
     }
+    var start = 120;
+
     function init() {
       canvas = document.getElementById('canvas');
       ctx = canvas.getContext('2d');
       setInterval(move, 10);
+      setInterval(function() {
+        start--;
+        $('#remTime').text((start+' s'));
+    }, 1000);
     }
 
     let i = 1;
@@ -143,7 +154,7 @@ $(document).ready(function () {
           x <= charX + CharaterWidth / 2 &&
           y >= canvas.height - CharaterHeight - swordHeight
         ) {
-          dx = Math.floor(Math.random() * 5) + -6;
+          dx = Math.floor(Math.random() * 5) + -7;
           dy = -dy;
         } else if (
           x <= charX + CharaterWidth &&
@@ -151,11 +162,11 @@ $(document).ready(function () {
           x >= charX + CharaterWidth / 2 &&
           y >= canvas.height - CharaterHeight - swordHeight
         ) {
-          dx = Math.floor(Math.random() * 5) + 1;
+          dx = Math.floor(Math.random() * 5) + 2;
           dy = -dy;
         } else {
-          dy = -dy;
           dx = Math.floor(Math.random() * 10) + -5;
+          dy = -dy;
           if (dx == 0) dx++;
         }
       }
@@ -171,7 +182,6 @@ $(document).ready(function () {
           removeSword();
           x = charX + CharaterWidth / 2;
           y = canvas.height - CharaterHeight - swordHeight;
-          life--;
           dx = Math.floor(Math.random() * 10) + -5;
           dy = -dy;
         }
@@ -243,7 +253,9 @@ $(document).ready(function () {
       }
 
       if (destoyedBricks >= 15 && done == true) {
-        $('.blink_me').show();
+         $('.blink_me').css({
+  visibility: 'visible'
+}); 
       }
 
       function rect(x, y, w, h, demon) {
@@ -287,6 +299,7 @@ $(document).ready(function () {
   });
 
   function removeSword() { 
+      if(life==0) console.log(life);
     $('.sword_life:nth-of-type(' + life + ')').hide();
     life--;
     $('.sword_life:nth-of-type(' + life + ')').css({
