@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Brick Slayer</title>
 
     <style>
@@ -12,45 +12,53 @@
         }
     </style>
 
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" type="image/x-icon" href="img/SD_logo.ico">
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" type="image/x-icon" href="img/SD_logo.ico" />
 </head>
 
 <body>
     <div class="container"></div>
 
-    <div class="game-frame">
-        <div class="game">
-            <div class="upper_menu"><p class="swords_left">SWORDS LEFT:</p>  <div class="swords">
+    <div class="game_frame">
+        <div class="info">
+           <!--  <p class="swords_left">SWORDS LEFT:</p>
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br />
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br />
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br />
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br />
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br />
+            <img src="img/Kyojuro-sword-180.png" class="sword_life">
+            <p class="legend">LEGEND:</p> -->
+
+        </div>
+        <canvas id="canvas" width="1200" height="600"></canvas>
+    </div>
+
+    <!--  <div class="game">
             <img src="img/Kyojuro-sword-180.png" class="sword_life"> <br/>
             <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
             <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
             <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
             <img src="img/Kyojuro-sword-180.png" class="sword_life">  <br/>
-            <img src="img/Kyojuro-sword-180.png" class="sword_life"></div></div>
-            <canvas id="canvas" width="1200" height="600"></canvas>  
+            <img src="img/Kyojuro-sword-180.png" class="sword_life"></div>
             <div class="blink_me">!! PRESS SPACE FOR POWERUP !!</div>
-
-        </div>
-        <!--    <div class="header" onclick='loadGame()'>
+            </div>    -->
+    <!--    <div class="header" onclick='loadGame()'>
             <h1 id="title">BRICK SLAYER</h1>
             <img src="img/SD_logo.png" id="DS-logo">
         </div>
  -->
-        <!-- <div class="game-frame-two">
+    <!-- <div class="game-frame-two">
             <h2>CHOOSE YOUR CHARACTER</h2><br/>
-            <p>! DOUBLE CLICK TO CONFIRM !</p>
+            <p class="confirm">! DOUBLE CLICK TO CONFIRM !</p>
             <img src="img/Giyuu.webp" class="character" id="char_one">
             <img src="img/Kyojuro.webp" class="character" id="char_two">
             <img src="img/Zenitsu.webp" class="character" id="char_three">
 
         </div>  -->
 
-    </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/main.js"></script>
-
 </body>
 
 </html>

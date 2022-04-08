@@ -19,6 +19,8 @@ $line-border-empty: #e0e0e0
     body
         height: 100vh
         font-family: Demon Slayer
+        display: grid
+        place-items: center
 
     .container
         height: 100%
@@ -26,9 +28,10 @@ $line-border-empty: #e0e0e0
         background: url(../img/background.jpg) no-repeat
         background-size: cover
         filter: blur(5px)
-        z-index: 0
+        z-index: -1
         display: grid
         place-items: center
+        position: absolute
 
     .header
         width: 38em
@@ -55,14 +58,6 @@ $line-border-empty: #e0e0e0
         font-size: 6em
         grid-column: 1
         grid-row: 1
-
-    .game-frame
-        width: 100%
-        height: 100%
-        @include centerer
-        border-radius: 12px
-        display: grid
-        place-items: center
 
     #canvas
         border-radius: 12px
@@ -91,7 +86,7 @@ $line-border-empty: #e0e0e0
         font-size: 4em
         color: white
 
-    p
+    .confirm
         text-align: center
         font-size: 2em
         margin-bottom: 1em
@@ -110,32 +105,23 @@ $line-border-empty: #e0e0e0
         transform: translateX(12.5%)
         margin-top: 10px
 
-    .game
-        height: 100%
-        width: min-content
-        margin-top: 15em
+    .swords_left
+        font-size: 4em
 
     .sword_life
-        height: 20px
+        height: 25px
+        margin-left: 50%
+        transform: translate(-50%)
 
-    .swords_left
-        float: left
-        margin-right: 20px
-        margin-bottom: 10px
-        
-
-    .swords
+    .info
         display: inline-block
+        height: 600px
         width: max-content
-        height: min-content
+
+    .legend
+        font-size: 4em
         position: absolute
-        top: 1em
-
-    .upper_menu
-        width: max-content
-        height: min-content
-
-   
+        top: 50%
 
 @keyframes blinker
     50%
