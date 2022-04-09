@@ -1,75 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Brick Slayer</title>
 
-    <style>
-      @font-face {
-        font-family: Demon Slayer;
-        src: url(font/DEMON_NI.TTF);
-      }
-    </style>
+<head>
+  <meta charset="utf-8" />
+  <title>Brick Slayer</title>
 
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="icon" type="image/x-icon" href="img/SD_logo.ico" />
-  </head>
+  <style>
+    @font-face {
+      font-family: Demon Slayer;
+      src: url(font/DEMON_NI.TTF);
+    }
+  </style>
 
-  <body>
-    <div class="container"></div>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" type="image/x-icon" href="img/SD_logo.ico" />
+</head>
 
-    <div class="game_frame">
-      <div class="info">
-        <p class="swords_left">SWORDS LEFT</p>
-        <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
-        <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
-        <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
-        <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
-        <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
-        <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br />
-        <br />
-        <br />
-        <p class="legend">LEGEND</p>
-        <br />
-        <div class="demon_legend">
-          <img src="img/demon1.png" class="demonImg" />
-          <img src="img/Kyojuro-sword.png" class="sword_life_two" /><img
-            src="img/Kyojuro-sword.png"
-            class="sword_life_two"
-          /><img src="img/Kyojuro-sword.png" class="sword_life_two" /><br />
-          <img src="img/demon2.png" class="demonImg" /><img
-            src="img/Kyojuro-sword.png"
-            class="sword_life_two"
-          /><img src="img/Kyojuro-sword.png" class="sword_life_two" /><br />
-          <img src="img/demon3.png" class="demonImg" /><img
-            src="img/Kyojuro-sword.png"
-            class="sword_life_two"
-          />
-        </div>
+<body onload="audio()">
+  <div class="container"></div>
 
-        <p class="timer">TIMER<mark id="remTime"></mark></p>
+  <div class="game_frame">
+    <div class="info">
+      <p class="swords_left">SWORDS LEFT</p>
+      <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
+      <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
+      <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
+      <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
+      <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br /><br />
+      <img src="img/Kyojuro-sword-180.png" class="sword_life" /> <br />
+      <br />
+      <br />
+      <p class="legend">LEGEND</p>
+      <br />
+      <div class="demon_legend">
+        <img src="img/demon1.png" class="demonImg" />
+        <img src="img/Kyojuro-sword.png" class="sword_life_two" /><img src="img/Kyojuro-sword.png"
+          class="sword_life_two" /><img src="img/Kyojuro-sword.png" class="sword_life_two" /><br />
+        <img src="img/demon2.png" class="demonImg" /><img src="img/Kyojuro-sword.png" class="sword_life_two" /><img
+          src="img/Kyojuro-sword.png" class="sword_life_two" /><br />
+        <img src="img/demon3.png" class="demonImg" /><img src="img/Kyojuro-sword.png" class="sword_life_two" />
       </div>
-      <canvas id="canvas" width="1400" height="750"></canvas>
-      <div class="blink_me">!! PRESS SPACE FOR POWERUP !!</div>
-      <!--  <div class="info_two">             <p class="swords_left">SWORDS LEFT:</p>
-        </div> -->
+
+      <p class="timer">TIMER<mark id="remTime"></mark></p>
     </div>
+    <canvas id="canvas" width="1400" height="750"></canvas>
+    <div class="blink_me">!! PRESS SPACE FOR POWERUP !!</div>
 
-    <!--    <div class="header" onclick='loadGame()'>
-            <h1 id="title">BRICK SLAYER</h1>
-            <img src="img/SD_logo.png" id="DS-logo">
-        </div>
- -->
-    <!-- <div class="game-frame-two">
-            <h2>CHOOSE YOUR CHARACTER</h2><br/>
-            <p class="confirm">! DOUBLE CLICK TO CONFIRM !</p>
-            <img src="img/Giyuu.webp" class="character" id="char_one">
-            <img src="img/Kyojuro.webp" class="character" id="char_two">
-            <img src="img/Zenitsu.webp" class="character" id="char_three">
+  </div>
 
-        </div>  -->
+  <div class="header">
+    <h1 id="title">BRICK SLAYER</h1>
+    <img src="img/SD_logo.png" id="DS-logo">
+  </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+  <div class="game-frame-two">
+    <h2>CHOOSE YOUR CHARACTER</h2><br />
+    <p class="confirm">! DOUBLE CLICK TO CONFIRM !</p>
+    <img src="img/Giyuu.webp" class="character" id="char_one">
+    <img src="img/Kyojuro.webp" class="character" id="char_two">
+    <img src="img/Zenitsu.webp" class="character" id="char_three">
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/main.js" defer></script>
+</body>
+
 </html>
