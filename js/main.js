@@ -16,35 +16,27 @@ $(document).ready(function () {
     $(this).css({ transform: 'scale(1.25)', filter: 'none' });
   });
 
-  let destoyedBricks = 1;
   $('.blink_me').css({
     visibility: 'hidden',
   });
-  var character = new Image();
+
+  character = new Image();
   $('#char_one').dblclick(function () {
     character.src = './img/Giyuu.webp';
-    $('.game-frame-two').fadeOut(400);
-    $('canvas').delay(400).fadeIn(600);
-    $('.info').delay(400).fadeIn(600);
-    $('.game_frame').delay(400).fadeIn(600);
-    setTimeout(() => {
-      draw();
-    }, 1000);
+    displayGame();
   });
 
   $('#char_two').dblclick(function () {
     character.src = './img/Kyojuro.webp';
-    $('.game-frame-two').fadeOut(400);
-    $('canvas').delay(400).fadeIn(600);
-    $('.info').delay(400).fadeIn(600);
-    $('.game_frame').delay(400).fadeIn(600);
-    setTimeout(() => {
-      draw();
-    }, 1000);
+    displayGame();
   });
 
   $('#char_three').dblclick(function () {
     character.src = './img/Zenitsu.webp';
+    displayGame();
+  });
+
+  function displayGame() {
     $('.game-frame-two').fadeOut(400);
     $('canvas').delay(400).fadeIn(600);
     $('.info').delay(400).fadeIn(600);
@@ -52,35 +44,37 @@ $(document).ready(function () {
     setTimeout(() => {
       draw();
     }, 1000);
-  });
-  var sword = new Image();
+  }
+
+  sword = new Image();
   sword.src = './img/Kyojuro-sword.png';
 
   swordWidth = sword.width / 10;
   swordHeight = sword.height / 10;
 
-  var sword_180 = new Image();
+  sword_180 = new Image();
   sword_180.src = './img/Kyojuro-sword-180.png';
 
   character.src = './img/Kyojuro.webp';
 
-  var demon_one = new Image();
+  demon_one = new Image();
   demon_one.src = './img/demon1.png';
 
-  var demon_two = new Image();
+  demon_two = new Image();
   demon_two.src = './img/demon2.png';
 
-  var demon_three = new Image();
+  demon_three = new Image();
   demon_three.src = './img/demon3.png';
 
-  var CharaterHeight = character.height / 7;
-  var CharaterWidth = character.width / 7;
-  var startW = canvas.width / 2;
-  var startH = canvas.height - CharaterHeight - swordHeight;
-  let done = true;
-  var rightDown = false;
-  var leftDown = false;
-  let ifPowerUp = false;
+  CharaterHeight = character.height / 7;
+  CharaterWidth = character.width / 7;
+  startW = canvas.width / 2;
+  startH = canvas.height - CharaterHeight - swordHeight;
+  endOfPowerUp = true;
+  rightDown = false;
+  leftDown = false;
+  ifPowerUp = false;
+  destoyedBricks = 1;
 
   function onKeyDown(evt) {
     if (evt.keyCode == 39) rightDown = true;
@@ -91,13 +85,13 @@ $(document).ready(function () {
           visibility: 'hidden',
         });
 
-        if (done == true) {
+        if (endOfPowerUp == true) {
           const audio = new Audio(
             'audio/Zenitsu Godlike Speed [ S02E10 ] (mp3cut.net).mp3'
           );
           audio.play();
           ifPowerUp = true;
-          done = false;
+          endOfPowerUp = false;
           setTimeout(() => {
             ifPowerUp = false;
           }, 5000);
@@ -137,16 +131,16 @@ $(document).ready(function () {
       ctx = canvas.getContext('2d');
       setInterval(move, 10);
       setInterval(function () {
-        start--;
-        $('#remTime').text(start + ' s');
+        timeLeft--;
+        $('#remTime').text(timeLeft + ' s');
       }, 1000);
     }
     function brickpower() {
       if (ifPowerUp == false) {
-        dy = dy*(-1);
+        dy = -dy;
       } else return;
     }
-    var start = 100;
+    var timeLeft = 100;
 
     let i = 1;
     function move() {
@@ -164,54 +158,56 @@ $(document).ready(function () {
           i += 20;
         } else ctx.drawImage(sword, x, y, swordWidth, swordHeight);
 
-        if (start <= 0) removeSword(start);
+        if (timeLeft <= 0) removeSword(timeLeft);
 
         if (
           x + swordWidth >= charX &&
           x <= charX + CharaterWidth &&
           y >= canvas.height - CharaterHeight - swordHeight
         ) {
-          if (
-            x + swordWidth >= charX &&
-            y >= canvas.height - CharaterHeight - swordHeight &&
-            x <= charX + CharaterWidth / 2 &&
-            y >= canvas.height - CharaterHeight - swordHeight
-          ) {
-            dx = Math.floor(Math.random() * 5) + -7;
-            dy = dy*(-1);
-          } else if (
-            x <= charX + CharaterWidth &&
-            y >= canvas.height - CharaterHeight - swordHeight &&
-            x >= charX + CharaterWidth / 2 &&
-            y >= canvas.height - CharaterHeight - swordHeight
-          ) {
-            dx = Math.floor(Math.random() * 5) + 2;
-            dy = dy*(-1);
-          } else {
-            dx = Math.floor(Math.random() * 10) + -5;
-            dy = dy*(-1);
-            if (dx == 0) dx++;
+          if (y + swordHeight < canvas.height - CharaterHeight / 1.3) {
+            dx = Math.floor(Math.random() * 11) - 5;
+            dy = Math.floor(Math.random() * 4) + 3;
+            dy = -Math.abs(dy);
+            if (dx == 0) dx--;
+          }
+          if (y + swordHeight > canvas.height - CharaterHeight / 1.3) {
+            if (x < charX + CharaterWidth / 2) {
+              dx = Math.floor(Math.random() * 5) - 6;
+              dy = Math.floor(Math.random() * 4) + 3;
+              dy = -Math.abs(dy);
+            } else if (x > charX + CharaterWidth / 2) {
+              dx = Math.floor(Math.random() * 5) + 1;
+              dy = Math.floor(Math.random() * 4) + 3;
+              dy = -Math.abs(dy);
+            }
           }
         }
-        if (dy == 0) dy--;
-        if (dx == 0) dx++;
 
-        if (x + swordWidth > canvas.width || x <= 5) {
-          dx = -dx;
+        if (x + swordWidth > canvas.width) {
+          dx = -Math.abs(dx);
+        } else if (x <= 0) {
+          dx = Math.abs(dx);
         }
         if (y + swordHeight > canvas.height) {
           if (ifPowerUp == true) {
-            dx = Math.floor(Math.random() * 10) + -5;
-            dy = dy*(-1);
+            dx = Math.floor(Math.random() * 11) - 5;
+            dy = Math.floor(Math.random() * 4) + 3;
+            dy = -Math.abs(dy);
+            if (dx == 0) dx--;
           } else {
-            removeSword(start);
+            removeSword(timeLeft);
             x = charX + CharaterWidth / 2;
             y = canvas.height - CharaterHeight - swordHeight;
-            dx = Math.floor(Math.random() * 10) + -5;
-            dy = dy*(-1);
+            dx = Math.floor(Math.random() * 11) - 5;
+            dy = Math.floor(Math.random() * 4) + 3;
+            dy = -Math.abs(dy);
+            if (dx == 0) dx--;
           }
-        } else if (y <= 5)         dy = dy*(-1);
-
+        } else if (y <= 0) {
+          dy = dy = Math.floor(Math.random() * 4) + 3;
+          dy = Math.abs(dy);
+        }
 
         x += dx;
         y += dy;
@@ -253,13 +249,16 @@ $(document).ready(function () {
         row = Math.floor(y / rowheight);
         col = Math.floor(x / colwidth);
         if (
-          x< colnum * colwidth &&  
-          row >= 0 &&   
-          col >= 0 &&   
-          brick_arr[row][col] >= 1 
+          y < rownum * rowheight ||
+          y - 5*swordHeight  < rownum * rowheight){
+            if(
+            row >= 0 &&
+            col >= 0 &&
+            brick_arr[row][col] >= 1
         ) {
           if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
             brick_arr[row][col] = 0;
+        
             destoyedBricks++;
           } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
             if (brick_arr[row][col] == 7.5) {
@@ -273,18 +272,15 @@ $(document).ready(function () {
               brick_arr[row][col] = brick_arr[row][col] + 0.5;
           } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
             brick_arr[row][col] = brick_arr[row][col] + 1;
-          } 
-
-          if (brick_arr[row][col] == 12) {
-            destoyedBricks++;
-            brick_arr[row][col] = 0;
+            if (brick_arr[row][col] == 12) {
+              destoyedBricks++;
+              brick_arr[row][col] = 0;
+            }
           }
-
           brickpower();
-        } 
-    
+        }}
 
-        if (destoyedBricks >= 15 && done == true) {
+        if (destoyedBricks >= 15 && endOfPowerUp == true) {
           $('.blink_me').css({
             visibility: 'visible',
           });
@@ -308,8 +304,6 @@ $(document).ready(function () {
           }
           ctx.strokeRect(x, y, w, h);
         }
-      } else {
-        return;
       }
     }
     init();
@@ -333,8 +327,8 @@ $(document).ready(function () {
     filter: 'drop-shadow(0 0 0.3rem red)',
   });
 
-  function removeSword(start) {
-    if (life == 0 || start <= 0) {
+  function removeSword(timeLeft) {
+    if (life == 0 || timeLeft <= 0) {
       $('.game-frame-two').hide();
       $('canvas').hide();
       $('.info').hide();
@@ -390,8 +384,8 @@ $(document).ready(function () {
   }
 });
 window.onload = function audio() {
-  /* const audio = new Audio(
+  const audio = new Audio(
     'audio/Demon Slayer_ Akaza vs Rengoku Theme _ EPIC VERSION (Mugen Train OST Cover).mp3'
   );
-  audio.play(); */
+  audio.play();
 };

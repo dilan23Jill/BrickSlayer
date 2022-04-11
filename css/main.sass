@@ -1,8 +1,4 @@
 $translateSize: calc(100%/-3)
-$border-radius: 50%
-
-$line-border-fill: #3498db
-$line-border-empty: #e0e0e0
 
 @mixin centerer
     position: absolute
@@ -21,18 +17,16 @@ $line-border-empty: #e0e0e0
         font-family: Demon Slayer
         display: grid
         place-items: center
-        background-color: black
 
-    .container
+    .container        
+        position: absolute
         height: 100%
         width: 100%
-        background: url(../img/background.jpg) no-repeat
-        background-size: cover
+        background: url(../img/background.jpg) no-repeat center /cover
         filter: blur(5px)
         z-index: -1
         display: grid
         place-items: center
-        position: absolute
 
     .header
         width: 38em
@@ -40,13 +34,13 @@ $line-border-empty: #e0e0e0
         display: grid
         place-items: center
         transition: all 3s ease-in-out
-        border-radius: $border-radius
+        border-radius: 50%
         padding: 5em
 
-    .header:hover
-        transform: rotate(360deg) scale(1.5)
-        filter: drop-shadow(0 0 0.75rem yellow)
-        cursor: pointer
+        &:hover
+            transform: rotate(360deg) scale(1.5)
+            filter: drop-shadow(0 0 0.75rem yellow)
+            cursor: pointer
 
     #DS-logo
         width: 400px
@@ -62,8 +56,7 @@ $line-border-empty: #e0e0e0
 
     #canvas
         border-radius: 12px
-        background: url('../img/background.jpg')
-        background-size: cover
+        background: url('../img/background.jpg') no-repeat center /cover
 
     .game-frame-two
         width: max-content
@@ -77,10 +70,10 @@ $line-border-empty: #e0e0e0
         margin-left: 1em
         filter: grayscale(100%)
 
-    .character:hover
-        transform: scale(1.25)
-        cursor: pointer
-        filter: none
+        &:hover
+            transform: scale(1.25)
+            cursor: pointer
+            filter: none
 
     h2
         text-align: center
@@ -153,6 +146,6 @@ $line-border-empty: #e0e0e0
         font-size: 4.5rem !important
         font-family: Demon Slayer
 
-@keyframes blinker
-    50%
-        opacity: 0
+        @keyframes blinker
+            50%
+                opacity: 0
