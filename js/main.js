@@ -143,7 +143,7 @@ $(document).ready(function () {
     }
     function brickpower() {
       if (ifPowerUp == false) {
-        dy = -dy;
+        dy = dy*(-1);
       } else return;
     }
     var start = 100;
@@ -178,7 +178,7 @@ $(document).ready(function () {
             y >= canvas.height - CharaterHeight - swordHeight
           ) {
             dx = Math.floor(Math.random() * 5) + -7;
-            dy = -dy;
+            dy = dy*(-1);
           } else if (
             x <= charX + CharaterWidth &&
             y >= canvas.height - CharaterHeight - swordHeight &&
@@ -186,10 +186,10 @@ $(document).ready(function () {
             y >= canvas.height - CharaterHeight - swordHeight
           ) {
             dx = Math.floor(Math.random() * 5) + 2;
-            dy = -dy;
+            dy = dy*(-1);
           } else {
             dx = Math.floor(Math.random() * 10) + -5;
-            dy = -dy;
+            dy = dy*(-1);
             if (dx == 0) dx++;
           }
         }
@@ -202,15 +202,16 @@ $(document).ready(function () {
         if (y + swordHeight > canvas.height) {
           if (ifPowerUp == true) {
             dx = Math.floor(Math.random() * 10) + -5;
-            dy = -dy;
+            dy = dy*(-1);
           } else {
             removeSword(start);
             x = charX + CharaterWidth / 2;
             y = canvas.height - CharaterHeight - swordHeight;
             dx = Math.floor(Math.random() * 10) + -5;
-            dy = -dy;
+            dy = dy*(-1);
           }
-        } else if (y <= 5) dy = -dy;
+        } else if (y <= 5)         dy = dy*(-1);
+
 
         x += dx;
         y += dy;
@@ -252,10 +253,10 @@ $(document).ready(function () {
         row = Math.floor(y / rowheight);
         col = Math.floor(x / colwidth);
         if (
-          y < rownum * rowheight &&
-          row >= 0 &&
-          col >= 0 &&
-          brick_arr[row][col] >= 1
+          x< colnum * colwidth &&  
+          row >= 0 &&   
+          col >= 0 &&   
+          brick_arr[row][col] >= 1 
         ) {
           if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
             brick_arr[row][col] = 0;
@@ -272,13 +273,16 @@ $(document).ready(function () {
               brick_arr[row][col] = brick_arr[row][col] + 0.5;
           } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
             brick_arr[row][col] = brick_arr[row][col] + 1;
-            if (brick_arr[row][col] == 12) {
-              destoyedBricks++;
-              brick_arr[row][col] = 0;
-            }
+          } 
+
+          if (brick_arr[row][col] == 12) {
+            destoyedBricks++;
+            brick_arr[row][col] = 0;
           }
+
           brickpower();
-        }
+        } 
+    
 
         if (destoyedBricks >= 15 && done == true) {
           $('.blink_me').css({
@@ -363,16 +367,16 @@ $(document).ready(function () {
   function BricksDestroyed() {
     bricksleft = false;
     $('.game-frame-two').hide();
-      $('canvas').hide();
-      $('.info').hide();
-      $('.game_frame').hide();
-      $('.container').hide();
+    $('canvas').hide();
+    $('.info').hide();
+    $('.game_frame').hide();
+    $('.container').hide();
 
-      $('body').css({
-        background: 'url(../img/background3.webp) no-repeat',
-        backgroundSize: 'cover',
-        backgroundColor: 'black',
-      });
+    $('body').css({
+      background: 'url(../img/background3.webp) no-repeat',
+      backgroundSize: 'cover',
+      backgroundColor: 'black',
+    });
     Swal.fire({
       title: 'YOU WIN',
       width: 2000,
@@ -386,8 +390,8 @@ $(document).ready(function () {
   }
 });
 window.onload = function audio() {
-   const audio = new Audio(
+  /* const audio = new Audio(
     'audio/Demon Slayer_ Akaza vs Rengoku Theme _ EPIC VERSION (Mugen Train OST Cover).mp3'
   );
-  audio.play();  
+  audio.play(); */
 };
