@@ -6,7 +6,8 @@
   * body {
     height: 100vh;
     font-family: Demon Slayer;
-    background: url(../img/background.jpg) no-repeat center/cover; }
+    background: url(../img/background.jpg);
+    background-size: cover; }
   * .fullbody {
     display: grid;
     place-items: center;
