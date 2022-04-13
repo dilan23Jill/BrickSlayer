@@ -8,25 +8,20 @@ $translateSize: calc(100%/-3)
 
 *
     margin: 0
-    padding: 0
+    padding: 0 
     overflow: hidden
     box-sizing: border-box
 
     body
         height: 100vh
         font-family: Demon Slayer
+        background: url(../img/background.jpg) no-repeat center /cover
+        
+    .fullbody
         display: grid
-        place-items: center
-
-    .container        
-        position: absolute
+        place-items: center 
         height: 100%
         width: 100%
-        background: url(../img/background.jpg) no-repeat center /cover
-        filter: blur(5px)
-        z-index: -1
-        display: grid
-        place-items: center
 
     .header
         width: 38em
@@ -56,7 +51,7 @@ $translateSize: calc(100%/-3)
 
     #canvas
         border-radius: 12px
-        background: url('../img/background.jpg') no-repeat center /cover
+        background: url('../img/canvas-background.jpg') no-repeat center /cover
 
     .game-frame-two
         width: max-content
@@ -143,9 +138,37 @@ $translateSize: calc(100%/-3)
         color: blue
 
     .swal2-popup
-        font-size: 4.5rem !important
+        font-size: 2rem !important
         font-family: Demon Slayer
 
         @keyframes blinker
             50%
                 opacity: 0
+
+    .info_menu
+        position: fixed
+        bottom: 2em
+        right: 4em
+        width: max-content
+        height: min-content
+
+    .menu
+        display: flex
+        width: 5em
+        height: 5em
+        border-radius: 50%
+        margin-bottom: 1em
+        margin-top: 2em
+        background: white
+        cursor: pointer
+        justify-content: center
+        align-items: center
+        transition: 2s ease-out 
+
+        &:hover
+            background: #500003
+            animation: 5s ease-in-out 
+
+    #mute, #volume, #credits, #comment
+        width: 60%
+        height: 60%

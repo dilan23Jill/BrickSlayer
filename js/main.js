@@ -3,7 +3,34 @@ $(document).ready(function () {
   $('canvas').hide();
   $('.info').hide();
   $('.game_frame').hide();
-
+  $('#volume').hide();
+  audio = new Audio(
+    'audio/Demon Slayer_ Akaza vs Rengoku Theme _ EPIC VERSION (Mugen Train OST Cover).mp3'
+  );
+  audio.volume = 0.4;
+  $('.menu:nth-of-type(3').on('click', function () {
+    $('#mute, #volume').toggle();
+    if ($('#volume').is(':visible')) audio.play();
+     else audio.pause();
+  });
+  $('.menu:nth-of-type(1)').on('click', function(){
+    Swal.fire({
+      title: "CREDITS!",
+      text: "MADE BY DILAN MUŽIČ",
+      confirmButtonColor: "#500003",
+      width: 700,
+      height: 100
+    });
+  });
+  $('.menu:nth-of-type(2)').on('click', function(){
+    Swal.fire({
+      title: "INSTRUCTION!",
+      text: "KILL ALL THE DEMONS BEFORE YOU RUN OUT OF SWORDS. GOOD LUCK!",
+      confirmButtonColor: "#500003",
+      width: 700,
+      height: 100
+    });
+  });
   $('.header').on('click', function () {
     $('#title').fadeOut(400);
     $('#DS-logo').fadeOut(400);
@@ -37,6 +64,8 @@ $(document).ready(function () {
   });
 
   function displayGame() {
+    $('.menu:nth-of-type(1)').fadeOut(400);
+    $('.menu:nth-of-type(2)').fadeOut(400);
     $('.game-frame-two').fadeOut(400);
     $('canvas').delay(400).fadeIn(600);
     $('.info').delay(400).fadeIn(600);
@@ -90,6 +119,7 @@ $(document).ready(function () {
             'audio/Zenitsu Godlike Speed [ S02E10 ] (mp3cut.net).mp3'
           );
           audio.play();
+
           ifPowerUp = true;
           endOfPowerUp = false;
           setTimeout(() => {
@@ -138,6 +168,7 @@ $(document).ready(function () {
     function brickpower() {
       if (ifPowerUp == false) {
         dy = -dy;
+        dx = -dx;
       } else return;
     }
     var timeLeft = 100;
@@ -145,6 +176,10 @@ $(document).ready(function () {
     let i = 1;
     function move() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      /* if(endOfPowerUp == false){
+      if(destoyedBricks >35)
+      endOfPowerUp = true;} */
 
       if (bricksleft == true) {
         ctx.drawImage(character, charX, charY, CharaterWidth, CharaterHeight);
@@ -167,18 +202,18 @@ $(document).ready(function () {
         ) {
           if (y + swordHeight < canvas.height - CharaterHeight / 1.3) {
             dx = Math.floor(Math.random() * 11) - 5;
-            dy = Math.floor(Math.random() * 4) + 3;
+            dy = Math.floor(Math.random() * 4) + 4;
             dy = -Math.abs(dy);
             if (dx == 0) dx--;
           }
           if (y + swordHeight > canvas.height - CharaterHeight / 1.3) {
             if (x < charX + CharaterWidth / 2) {
               dx = Math.floor(Math.random() * 5) - 6;
-              dy = Math.floor(Math.random() * 4) + 3;
+              dy = Math.floor(Math.random() * 4) + 4;
               dy = -Math.abs(dy);
             } else if (x > charX + CharaterWidth / 2) {
               dx = Math.floor(Math.random() * 5) + 1;
-              dy = Math.floor(Math.random() * 4) + 3;
+              dy = Math.floor(Math.random() * 4) + 4;
               dy = -Math.abs(dy);
             }
           }
@@ -192,7 +227,7 @@ $(document).ready(function () {
         if (y + swordHeight > canvas.height) {
           if (ifPowerUp == true) {
             dx = Math.floor(Math.random() * 11) - 5;
-            dy = Math.floor(Math.random() * 4) + 3;
+            dy = Math.floor(Math.random() * 4) + 4;
             dy = -Math.abs(dy);
             if (dx == 0) dx--;
           } else {
@@ -200,12 +235,12 @@ $(document).ready(function () {
             x = charX + CharaterWidth / 2;
             y = canvas.height - CharaterHeight - swordHeight;
             dx = Math.floor(Math.random() * 11) - 5;
-            dy = Math.floor(Math.random() * 4) + 3;
+            dy = Math.floor(Math.random() * 4) + 4;
             dy = -Math.abs(dy);
             if (dx == 0) dx--;
           }
         } else if (y <= 0) {
-          dy = dy = Math.floor(Math.random() * 4) + 3;
+          dy = dy = Math.floor(Math.random() * 4) + 4;
           dy = Math.abs(dy);
         }
 
@@ -249,16 +284,14 @@ $(document).ready(function () {
         row = Math.floor(y / rowheight);
         col = Math.floor(x / colwidth);
         if (
-          y < rownum * rowheight ||
-          y - 5*swordHeight  < rownum * rowheight){
-            if(
-            row >= 0 &&
-            col >= 0 &&
-            brick_arr[row][col] >= 1
+          y < rownum * rowheight &&
+          row >= 0 &&
+          col >= 0 &&
+          brick_arr[row][col] >= 1
         ) {
           if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
             brick_arr[row][col] = 0;
-        
+
             destoyedBricks++;
           } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
             if (brick_arr[row][col] == 7.5) {
@@ -278,7 +311,7 @@ $(document).ready(function () {
             }
           }
           brickpower();
-        }}
+        }
 
         if (destoyedBricks >= 15 && endOfPowerUp == true) {
           $('.blink_me').css({
@@ -340,16 +373,6 @@ $(document).ready(function () {
         backgroundSize: 'cover',
         backgroundColor: 'black',
       });
-      Swal.fire({
-        title: 'YOU DIED',
-        width: 2000,
-        showConfirmButton: false,
-        timer: 5000,
-        color: '#fff',
-        background: 'transparent',
-      }).then(function () {
-        location.reload();
-      });
     }
     $('.sword_life:nth-of-type(' + life + ')').hide();
     life--;
@@ -371,21 +394,6 @@ $(document).ready(function () {
       backgroundSize: 'cover',
       backgroundColor: 'black',
     });
-    Swal.fire({
-      title: 'YOU WIN',
-      width: 2000,
-      showConfirmButton: false,
-      timer: 5000,
-      color: '#fff',
-      background: 'transparent',
-    }).then(function () {
-      location.reload();
-    });
   }
 });
-window.onload = function audio() {
-  const audio = new Audio(
-    'audio/Demon Slayer_ Akaza vs Rengoku Theme _ EPIC VERSION (Mugen Train OST Cover).mp3'
-  );
-  audio.play();
-};
+
