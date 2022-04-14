@@ -312,38 +312,7 @@ $(document).ready(function () {
           }
           brickpower();
         } 
-        if (
-          x + swordWidth < rownum * rowheight &&
-          row >= 0 &&
-          col >= 0 &&
-          brick_arr[row][col] >= 1
-        ) {
-          if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
-            brick_arr[row][col] = 0;
-
-            destoyedBricks++;
-          } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
-            if (brick_arr[row][col] == 7.5) {
-              destoyedBricks++;
-              brick_arr[row][col] = 0;
-            }
-            if (brick_arr[row][col] == 8)
-              brick_arr[row][col] = brick_arr[row][col] - 0.5;
-
-            if (brick_arr[row][col] == 7)
-              brick_arr[row][col] = brick_arr[row][col] + 0.5;
-          } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
-            brick_arr[row][col] = brick_arr[row][col] + 1;
-            if (brick_arr[row][col] == 12) {
-              destoyedBricks++;
-              brick_arr[row][col] = 0;
-            }
-          }
-          brickpower();
-        } 
-
-       
-
+        
         if (destoyedBricks >= 15 && endOfPowerUp == true) {
           $('.blink_me').css({
             visibility: 'visible',
