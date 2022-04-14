@@ -8,27 +8,31 @@ $(document).ready(function () {
     'audio/Demon Slayer_ Akaza vs Rengoku Theme _ EPIC VERSION (Mugen Train OST Cover).mp3'
   );
   audio.volume = 0.4;
+
+  popup_audio = new Audio('audio/Sword Draw Sound Effect.mp3');
   $('.menu:nth-of-type(3').on('click', function () {
     $('#mute, #volume').toggle();
     if ($('#volume').is(':visible')) audio.play();
-     else audio.pause();
+    else audio.pause();
   });
-  $('.menu:nth-of-type(1)').on('click', function(){
+  $('.menu:nth-of-type(1)').on('click', function () {
+    popup_audio.play();
     Swal.fire({
-      title: "CREDITS!",
-      text: "MADE BY DILAN MUŽIČ",
-      confirmButtonColor: "#500003",
+      title: 'CREDITS!',
+      text: 'MADE BY DILAN MUŽIČ',
+      confirmButtonColor: '#500003',
       width: 700,
-      height: 100
+      height: 100,
     });
   });
-  $('.menu:nth-of-type(2)').on('click', function(){
+  $('.menu:nth-of-type(2)').on('click', function () {
+    popup_audio.play();
     Swal.fire({
-      title: "INSTRUCTION!",
-      text: "KILL ALL THE DEMONS BEFORE YOU RUN OUT OF SWORDS. GOOD LUCK!",
-      confirmButtonColor: "#500003",
+      title: 'INSTRUCTION!',
+      text: 'KILL ALL THE DEMONS BEFORE YOU RUN OUT OF SWORDS. GOOD LUCK!',
+      confirmButtonColor: '#500003',
       width: 700,
-      height: 100
+      height: 100,
     });
   });
   $('.header').on('click', function () {
@@ -46,19 +50,29 @@ $(document).ready(function () {
   $('.blink_me').css({
     visibility: 'hidden',
   });
+  giyuAudio = new Audio('audio/Giyuu saying his name.mp3');
+  rengokuAudio = new Audio(
+    'audio/Rengoku Kyojuro Saying His Name - AUDIO FOR EDIT - Demons Slayer.m4a'
+  );
+  zenitsuAudio = new Audio(
+    'audio/Zenitsu saying his name (Free)-Demon slayer.mp3'
+  );
 
   character = new Image();
   $('#char_one').dblclick(function () {
+    giyuAudio.play();
     character.src = './img/Giyuu.webp';
     displayGame();
   });
 
   $('#char_two').dblclick(function () {
+    rengokuAudio.play();
     character.src = './img/Kyojuro.webp';
     displayGame();
   });
 
   $('#char_three').dblclick(function () {
+    zenitsuAudio.play();
     character.src = './img/Zenitsu.webp';
     displayGame();
   });
@@ -145,6 +159,8 @@ $(document).ready(function () {
   var brickwidth = canvas.width / colnum - 11;
   let checkNull;
   let bricksleft = true;
+  let row;
+  let col;
 
   function draw() {
     let x = startW;
@@ -279,8 +295,50 @@ $(document).ready(function () {
 
         if (checkNull == 0) BricksDestroyed();
 
-        rowheight = brickheight + padding;
-        colwidth = brickwidth + padding;
+        /* do {
+          try {
+            if (y < rownum * rowheight) {
+              col = Math.floor((x + swordWidth / 2) / colwidth);
+              if (dy < 0) {
+                //Spodnji odboj
+                row = Math.floor((y - rowheight / 2) / rowheight);
+                if (row >= 0 && col >= 0 && brick_arr[row][col] > 0) {
+                  destroyBricks();
+                  break;
+                }
+              } else {
+                row = Math.floor((y + rowheight) / rowheight);
+                //Zgornji odboj
+                if (row >= 0 && col >= 0 && brick_arr[row][col] > 0) {
+                  destroyBricks();
+                  break;
+                }
+              }
+              row = Math.floor((y + swordHeight) / rowheight);
+              if (dx > 0) {
+                col = Math.floor((x + colwidth / 2 - swordWidth/2) / colwidth);
+
+                //Levi odboj
+                if (row >= 0 && col >= 0 && brick_arr[row][col] > 0) {
+                  destroyBricks();
+                  break;
+                }
+              } else {
+                col = Math.floor((x) / colwidth);
+                //Desni odboj
+                if (row >= 0 && col >= 0 && bricks[row][col] > 0) {
+                  destroyBricks();
+                  break;
+                }
+              }
+            }
+          } catch (error) {
+          }
+        } while (false); */
+
+        rowheight = brickheight + padding ;
+        colwidth = brickwidth + padding ;
+        
         row = Math.floor(y / rowheight);
         col = Math.floor(x / colwidth);
         if (
@@ -312,7 +370,9 @@ $(document).ready(function () {
           }
           brickpower();
         } 
-        
+
+
+
         if (destoyedBricks >= 15 && endOfPowerUp == true) {
           $('.blink_me').css({
             visibility: 'visible',
@@ -396,4 +456,3 @@ $(document).ready(function () {
     });
   }
 });
-

@@ -104,7 +104,7 @@
     margin-left: 0.3em;
     animation: blinker 1s linear infinite;
     background-color: transparent;
-    color: blue; }
+    color: #500003; }
   * .swal2-popup {
     font-size: 2rem !important;
     font-family: Demon Slayer; }
