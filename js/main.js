@@ -90,7 +90,7 @@ $(document).ready(function () {
   }
 
   sword = new Image();
-  sword.src = './img/Kyojuro-sword.png';
+  sword.src = './img/Kyojuro-sword-180.png';
 
   swordWidth = sword.width / 10;
   swordHeight = sword.height / 10;
@@ -370,6 +370,33 @@ $(document).ready(function () {
           }
           brickpower();
         } 
+         if (
+          x + swordWidth< rownum * rowheight &&
+          row >= 0 &&
+          col >= 0 &&
+          brick_arr[row][col] >= 1
+        ) { if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
+          brick_arr[row][col] = 0;
+
+          destoyedBricks++;
+        } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
+          if (brick_arr[row][col] == 7.5) {
+            destoyedBricks++;
+            brick_arr[row][col] = 0;
+          }
+          if (brick_arr[row][col] == 8)
+            brick_arr[row][col] = brick_arr[row][col] - 0.5;
+
+          if (brick_arr[row][col] == 7)
+            brick_arr[row][col] = brick_arr[row][col] + 0.5;
+        } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
+          brick_arr[row][col] = brick_arr[row][col] + 1;
+          if (brick_arr[row][col] == 12) {
+            destoyedBricks++;
+            brick_arr[row][col] = 0;
+          }
+        }
+        brickpower();}
 
 
 
@@ -383,7 +410,6 @@ $(document).ready(function () {
           ctx.beginPath();
           ctx.rect(x, y, w, h);
           ctx.closePath();
-          ctx.fill();
 
           if (demon >= 1 && demon <= 6) {
             ctx.drawImage(demon_three, x, y, w, h);
@@ -395,7 +421,6 @@ $(document).ready(function () {
             ctx.drawImage(demon_one, x, y, w, h);
             ctx.strokeStyle = 'yellow';
           }
-          ctx.strokeRect(x, y, w, h);
         }
       }
     }
@@ -430,8 +455,7 @@ $(document).ready(function () {
 
       $('body').css({
         background: 'url(../img/background2.jpg) no-repeat',
-        backgroundSize: 'cover',
-        backgroundColor: 'black',
+        backgroundSize: 'cover'
       });
     }
     $('.sword_life:nth-of-type(' + life + ')').hide();
@@ -451,8 +475,7 @@ $(document).ready(function () {
 
     $('body').css({
       background: 'url(../img/background3.webp) no-repeat',
-      backgroundSize: 'cover',
-      backgroundColor: 'black',
+      backgroundSize: 'cover'
     });
   }
 });
