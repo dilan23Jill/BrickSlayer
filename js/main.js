@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  var executed = false;
   $('.game-frame-two').hide();
   $('canvas').hide();
   $('.info').hide();
@@ -20,7 +21,7 @@ $(document).ready(function () {
   $('.menu:nth-of-type(1)').on('click', function () {
     popup_audio.play();
     $('.header').hide();
-    $('.credits_alert').fadeIn(800);    
+    $('.credits_alert').fadeIn(800);
     $('#instr').hide();
     $('#credits_cloud').show();
 
@@ -32,7 +33,7 @@ $(document).ready(function () {
   $('.menu:nth-of-type(2)').on('click', function () {
     popup_audio.play();
     $('.header').hide();
-    $('.credits_alert').fadeIn(800);    
+    $('.credits_alert').fadeIn(800);
     $('#credits_cloud').hide();
     $('#instr').show();
 
@@ -40,7 +41,6 @@ $(document).ready(function () {
       $('.credits_alert').fadeOut(400);
       $('.header').delay(600).fadeIn(800);
     }, 5000);
-    
   });
   $('.header').on('click', function () {
     $('#title').fadeOut(400);
@@ -69,19 +69,28 @@ $(document).ready(function () {
   $('#char_one').on('click', function () {
     giyuAudio.play();
     character.src = './img/Giyuu.webp';
-    displayGame();
+    if (!executed) {
+      executed = true;
+      displayGame();
+    }
   });
 
   $('#char_two').on('click', function () {
     rengokuAudio.play();
     character.src = './img/Kyojuro.webp';
-    displayGame();
+    if (!executed) {
+      executed = true;
+      displayGame();
+    }
   });
 
   $('#char_three').on('click', function () {
     zenitsuAudio.play();
     character.src = './img/Zenitsu.webp';
-    displayGame();
+    if (!executed) {
+      executed = true;
+      displayGame();
+    }
   });
 
   function displayGame() {
@@ -343,9 +352,9 @@ $(document).ready(function () {
           }
         } while (false); */
 
-        rowheight = brickheight + padding ;
-        colwidth = brickwidth + padding ;
-        
+        rowheight = brickheight + padding;
+        colwidth = brickwidth + padding;
+
         row = Math.floor(y / rowheight);
         col = Math.floor(x / colwidth);
         if (
@@ -376,36 +385,36 @@ $(document).ready(function () {
             }
           }
           brickpower();
-        } 
-         if (
-          x + swordWidth< rownum * rowheight &&
+        }
+        if (
+          x + swordWidth < rownum * rowheight &&
           row >= 0 &&
           col >= 0 &&
           brick_arr[row][col] >= 1
-        ) { if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
-          brick_arr[row][col] = 0;
-
-          destoyedBricks++;
-        } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
-          if (brick_arr[row][col] == 7.5) {
-            destoyedBricks++;
+        ) {
+          if (brick_arr[row][col] >= 1 && brick_arr[row][col] <= 6) {
             brick_arr[row][col] = 0;
-          }
-          if (brick_arr[row][col] == 8)
-            brick_arr[row][col] = brick_arr[row][col] - 0.5;
 
-          if (brick_arr[row][col] == 7)
-            brick_arr[row][col] = brick_arr[row][col] + 0.5;
-        } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
-          brick_arr[row][col] = brick_arr[row][col] + 1;
-          if (brick_arr[row][col] == 12) {
             destoyedBricks++;
-            brick_arr[row][col] = 0;
+          } else if (brick_arr[row][col] >= 7 && brick_arr[row][col] <= 8) {
+            if (brick_arr[row][col] == 7.5) {
+              destoyedBricks++;
+              brick_arr[row][col] = 0;
+            }
+            if (brick_arr[row][col] == 8)
+              brick_arr[row][col] = brick_arr[row][col] - 0.5;
+
+            if (brick_arr[row][col] == 7)
+              brick_arr[row][col] = brick_arr[row][col] + 0.5;
+          } else if (brick_arr[row][col] >= 9 && brick_arr[row][col] < 12) {
+            brick_arr[row][col] = brick_arr[row][col] + 1;
+            if (brick_arr[row][col] == 12) {
+              destoyedBricks++;
+              brick_arr[row][col] = 0;
+            }
           }
+          brickpower();
         }
-        brickpower();}
-
-
 
         if (destoyedBricks >= 15 && endOfPowerUp == true) {
           $('.blink_me').css({
@@ -462,7 +471,7 @@ $(document).ready(function () {
 
       $('body').css({
         background: 'url(../img/background2.jpg) no-repeat',
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
       });
     }
     $('.sword_life:nth-of-type(' + life + ')').hide();
@@ -482,7 +491,7 @@ $(document).ready(function () {
 
     $('body').css({
       background: 'url(../img/background3.webp) no-repeat',
-      backgroundSize: 'cover'
+      backgroundSize: 'cover',
     });
   }
 });
