@@ -16,9 +16,17 @@
   <link rel="icon" type="image/x-icon" href="img/SD_logo.ico" />
 </head>
 
-<body>  
+<body>
 
-  <div class="fullbody">
+  <div class="credits_alert">
+    <img src="img/cloud.png" alt="cloud" id="cloud">
+    <p id="credits_cloud">&emsp;MADE BY <br/>DILAN MUZIC</p>
+    <p id="instr">KILL ALL THE DEMONS<br/> BEFORE YOU RUN OUT OF <br/>SWORDS OR TIME. <br/> &emsp;&emsp;GOOD LUCK!</p>
+    <img src="img/tomioka_talk.png" alt="tomioka" id="giyu">
+
+
+    
+  </div>
 
   <div class="game_frame">
     <div class="info">
@@ -34,14 +42,15 @@
       <p class="legend">LEGEND</p>
       <br />
       <div class="demon_legend">
-        <img src="img/demon1.png" class="demonImg" />
-        <img src="img/Kyojuro-sword.png" class="sword_life_two" /><img src="img/Kyojuro-sword.png"
-          class="sword_life_two" /><img src="img/Kyojuro-sword.png" class="sword_life_two" /><br />
-        <img src="img/demon2.png" class="demonImg" /><img src="img/Kyojuro-sword.png" class="sword_life_two" /><img
-          src="img/Kyojuro-sword.png" class="sword_life_two" /><br />
-        <img src="img/demon3.png" class="demonImg" /><img src="img/Kyojuro-sword.png" class="sword_life_two" />
+        <img src="img/demon1.png" alt="demon" class="demonImg" />
+        <img src="img/Kyojuro-sword.png" alt="demon" class="sword_life_two" /><img src="img/Kyojuro-sword.png"
+          alt="demon" class="sword_life_two" /><img src="img/Kyojuro-sword.png" alt="demon"
+          class="sword_life_two" /><br />
+        <img src="img/demon2.png" class="demonImg" alt="demon" /><img src="img/Kyojuro-sword.png" alt="demon"
+          class="sword_life_two" /><img src="img/Kyojuro-sword.png" alt="demon" class="sword_life_two" /><br />
+        <img src="img/demon3.png" alt="demon" class="demonImg" /><img src="img/Kyojuro-sword.png" alt="demon"
+          class="sword_life_two" />
       </div>
-
       <p class="timer">TIMER<mark id="remTime"></mark></p>
     </div>
     <canvas id="canvas" width="1400" height="750"></canvas>
@@ -51,31 +60,30 @@
 
   <div class="header">
     <h1 id="title">BRICK SLAYER</h1>
-    <img src="img/SD_logo.png" id="DS-logo">
+    <img src="img/SD_logo.png" alt="demon" id="DS-logo">
   </div>
 
   <div class="game-frame-two">
     <h2>CHOOSE YOUR CHARACTER</h2><br />
     <p class="confirm">! DOUBLE CLICK TO CONFIRM !</p>
-    <img src="img/Giyuu.webp" class="character" id="char_one">
-    <img src="img/Kyojuro.webp" class="character" id="char_two">
-    <img src="img/Zenitsu.webp" class="character" id="char_three">
+    <img src="img/Giyuu.webp" alt="demon" class="character" id="char_one">
+    <img src="img/Kyojuro.webp" alt="demon" class="character" id="char_two">
+    <img src="img/Zenitsu.webp" alt="demon" class="character" id="char_three">
 
   </div>
 
   <div class="info_menu">
     <div class="menu">
-      <img src="img/c.png" id="credits">
+      <img src="img/c.png" alt="demon" id="credits">
     </div>
     <div id="instructions" class="menu">
-      <img id="comment" src="img/comment.png">
+      <img id="comment" alt="demon" src="img/comment.png">
     </div>
     <div id="sound" class="menu">
-      <img id="mute" src="img/mute.png">
-      <img id="volume" src="img/volume.png">
+      <img id="mute" alt="demon" src="img/mute.png">
+      <img id="volume" alt="demon" src="img/volume.png">
     </div>
   </div>
-</div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/main.js"></script>

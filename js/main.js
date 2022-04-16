@@ -4,6 +4,8 @@ $(document).ready(function () {
   $('.info').hide();
   $('.game_frame').hide();
   $('#volume').hide();
+  $('.credits_alert').hide();
+
   audio = new Audio(
     'audio/Demon Slayer_ Akaza vs Rengoku Theme _ EPIC VERSION (Mugen Train OST Cover).mp3'
   );
@@ -17,23 +19,28 @@ $(document).ready(function () {
   });
   $('.menu:nth-of-type(1)').on('click', function () {
     popup_audio.play();
-    Swal.fire({
-      title: 'CREDITS!',
-      text: 'MADE BY DILAN MUŽIČ',
-      confirmButtonColor: '#500003',
-      width: 700,
-      height: 100,
-    });
+    $('.header').hide();
+    $('.credits_alert').fadeIn(800);    
+    $('#instr').hide();
+    $('#credits_cloud').show();
+
+    setTimeout(() => {
+      $('.credits_alert').fadeOut(400);
+      $('.header').delay(600).fadeIn(800);
+    }, 5000);
   });
   $('.menu:nth-of-type(2)').on('click', function () {
     popup_audio.play();
-    Swal.fire({
-      title: 'INSTRUCTION!',
-      text: 'KILL ALL THE DEMONS BEFORE YOU RUN OUT OF SWORDS. GOOD LUCK!',
-      confirmButtonColor: '#500003',
-      width: 700,
-      height: 100,
-    });
+    $('.header').hide();
+    $('.credits_alert').fadeIn(800);    
+    $('#credits_cloud').hide();
+    $('#instr').show();
+
+    setTimeout(() => {
+      $('.credits_alert').fadeOut(400);
+      $('.header').delay(600).fadeIn(800);
+    }, 5000);
+    
   });
   $('.header').on('click', function () {
     $('#title').fadeOut(400);
@@ -59,19 +66,19 @@ $(document).ready(function () {
   );
 
   character = new Image();
-  $('#char_one').dblclick(function () {
+  $('#char_one').on('click', function () {
     giyuAudio.play();
     character.src = './img/Giyuu.webp';
     displayGame();
   });
 
-  $('#char_two').dblclick(function () {
+  $('#char_two').on('click', function () {
     rengokuAudio.play();
     character.src = './img/Kyojuro.webp';
     displayGame();
   });
 
-  $('#char_three').dblclick(function () {
+  $('#char_three').on('click', function () {
     zenitsuAudio.play();
     character.src = './img/Zenitsu.webp';
     displayGame();
