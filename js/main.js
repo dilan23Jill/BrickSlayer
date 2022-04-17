@@ -43,6 +43,8 @@ $(document).ready(function () {
     }, 5000);
   });
   $('.header').on('click', function () {
+    $('.menu:nth-of-type(1)').fadeOut(400);
+    $('.menu:nth-of-type(2)').fadeOut(400);
     $('#title').fadeOut(400);
     $('#DS-logo').fadeOut(400);
     $('.header').fadeOut(400);
@@ -200,7 +202,7 @@ $(document).ready(function () {
     function brickpower() {
       if (ifPowerUp == false) {
         dy = -dy;
-        dx = -dx;
+        dx = Math.random() * 11 - 5;
       } else return;
     }
     var timeLeft = 100;
